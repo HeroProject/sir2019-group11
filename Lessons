@@ -1,0 +1,38 @@
+class Word:
+    def __init__(self, word, translation, sentence = None, sentence_translation = None):
+        self.word = word
+        self.translation = translation
+        self.sentence = sentence
+        self.sentence_translation = sentence_translation
+
+class Lesson:
+    from random import sample
+    def __init__(self, words):
+        self.words_to_learn = words
+        self.learned_words = []
+    
+    def append(self, word):
+        self.words_to_learn.append(word)
+    
+    def sample(self):
+        if len(self.words_to_learn) > 0:
+            return sample(self.words_to_learn, 1)[0]
+        else:
+            print('All words are learned')
+            return
+    
+    def get(self, aword):
+        for word in self.words_to_learn:
+            if aword.lower() == word.word.lower():
+                return word
+    
+    def correct_answer(self, word):
+        self.words_to_learn.remove(word)
+        self.learned_words.append(word)
+    
+    
+bike = Word('bicycle', 'fiets', 'I have a red bicycle', 'Ik heb een rode fiets')
+car = Word('car', 'auto', 'A car has four wheels', 'Een auto heeft vier wielen')
+train = Word('train', 'trein', 'The train leaves the station', 'De trein verlaat het station')
+
+lesson = Lesson([bike, car, train])
