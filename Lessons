@@ -66,4 +66,4 @@ bike = Word('bicycle', 'fiets', 'I have a red bicycle', 'Ik heb een rode fiets')
 car = Word('car', 'auto', 'A car has four wheels', 'Een auto heeft vier wielen')
 train = Word('train', 'trein', 'The train leaves the station', 'De trein verlaat het station')
 
-lesson = Lesson([bike, car, train])
+lesson = Lesson('Transportation', [bike, car, train])
