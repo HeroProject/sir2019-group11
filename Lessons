@@ -7,6 +7,7 @@ class Word:
 
 class Lesson:
     from random import sample
+    
     def __init__(self, name, words):
         self.name = name
         self.words_to_learn = words
@@ -40,7 +41,7 @@ class Lesson:
         '''
         Get a word from the words that are not yet learned.
         Input: English word to learn as a string
-        Output: Insance of the class Word correspodning to the word 
+        Output: Insance of the class Word corresponding to the word 
         you requested iff the word is part of the lesson and not yet learned
         '''
         for word in self.words_to_learn:
@@ -60,10 +61,30 @@ class Lesson:
             self.learned_words.append(word)
         else:
             print('Word is either already learned or is not part of this lesson.')
-    
-    
+
 bike = Word('bicycle', 'fiets', 'I have a red bicycle', 'Ik heb een rode fiets')
 car = Word('car', 'auto', 'A car has four wheels', 'Een auto heeft vier wielen')
 train = Word('train', 'trein', 'The train leaves the station', 'De trein verlaat het station')
+plane = Word('plane', 'vliegtuig', 'There is a plane in the air', 'Er is een vliegtuig in de lucht')
+bus = Word('bus', 'bus', 'The bus drives through the city', 'De bus rijdt door de stad')
+subway = Word('subway', 'metro', 'The subway is driving underground', 'De metro rijdt onder de grond')
 
-lesson = Lesson('Transportation', [bike, car, train])
+mother = Word('mother', 'moeder', 'My mother is very smart', 'Mijn moeder is erg slim')
+father = Word('father', 'vader', 'My father has a car', 'Mijn vader heeft een auto')
+sister = Word('sister', 'zus', 'My sister is older than me', 'Mijn zus is ouder dan ik')
+brother = Word('brother', 'broer', 'I play often with my brother', 'Ik speel vaak met mijn broer')
+grandfather = Word('grandfather', 'opa', 'Every sunday, I go to my grandfather', 'Elke zondag, ga ik naar mijn opa')
+grandmother = Word('grandmother', 'oma', 'My grandmother watches tv', 'Mijn oma kijkt tv')
+
+cat = Word('cat', 'kat', 'The cat is hungry', 'De kat heeft honger')
+dog = Word('dog', 'hond', 'The dog plays with a ball', 'De hond speelt met een bal')
+gorilla = Word('gorilla', 'gorilla', 'There is a gorilla in the woods', 'Er is een gorilla in het bos')
+mouse = Word('mouse', 'muis', 'The mouse eats some cheese', 'De muis eet wat kaas')
+fish = Word('fish', 'vis', 'There is a fish in the water', 'Er is een vis in het water')
+cow = Word('cow', 'koe', 'The cow does moooo', 'De koe doet moooo')
+elephant = Word('elephant', 'olifant', 'The elephant eats peanuts', 'De olifant eet pinda’s')
+
+
+transportation = Lesson('Transportation', [bike, car, train, plane, bus, subway])
+family = Lesson('Family', [mother, father, sister, brother, grandfather, grandmother])
+animals = Lesson('Animals', [cat, dog, gorilla, mouse, fish, cow, elephant])
