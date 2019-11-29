@@ -1,3 +1,6 @@
+import copy
+from random import sample
+
 class Word:
     def __init__(self, word, translation, sentence = None, sentence_translation = None):
         self.word = word
@@ -5,9 +8,7 @@ class Word:
         self.sentence = sentence
         self.sentence_translation = sentence_translation
 
-class Lesson:
-    from random import sample
-    
+class Lesson:   
     def __init__(self, name, words):
         self.name = name
         self.words_to_learn = words
@@ -40,27 +41,50 @@ class Lesson:
     def get(self, aword):
         '''
         Get a word from the words that are not yet learned.
-        Input: English word to learn as a string
+        Input: English or Dutch word to learn as a string
         Output: Insance of the class Word corresponding to the word 
         you requested iff the word is part of the lesson and not yet learned
         '''
         for word in self.words_to_learn:
-            if aword.lower() == word.word.lower():
+            if (aword.lower() == word.word.lower()) or (aword.lower() == word.translation.lower()):
                 return word
+            
         print('Word is either already learned or is not part of this lesson.')
     
     def correct_answer(self, word):
         '''
         Call when a word is correctly learned. This function removes 
         the word from the words to learn and adds it to the learned words.
-        Input: Instance of the class Word
+        Input: Instance of the class Word or the english word as string
         Output: None
         '''
         if word in self.words_to_learn:
             self.words_to_learn.remove(word)
             self.learned_words.append(word)
+        elif type(word) == str:
+            self.learned_words.append(self.get(word))
+            self.words_to_learn.remove(self.get(word))
         else:
             print('Word is either already learned or is not part of this lesson.')
+            
+class Person:
+    def __init__(self, name):
+        self.name = name
+        self.firstlesson = True
+        self.lessons_to_learn = copy.deepcopy(lessons)
+        self.lessons_learned = []
+    
+    def update(self):
+        '''
+        Check for every lesson if there are words left that arent learned yet. 
+        And updates the lessons_learned and lessons_to_learn properties.
+        Input = None
+        Output = None
+        '''
+        for lesson in self.lessons_to_learn:
+            if len(lesson.words_to_learn) == 0:
+                self.lessons_learned.append(lesson)
+                self.lessons_to_learn.remove(lesson)
 
 bike = Word('bicycle', 'fiets', 'I have a red bicycle', 'Ik heb een rode fiets')
 car = Word('car', 'auto', 'A car has four wheels', 'Een auto heeft vier wielen')
@@ -88,3 +112,5 @@ elephant = Word('elephant', 'olifant', 'The elephant eats peanuts', 'De olifant 
 transportation = Lesson('Transportation', [bike, car, train, plane, bus, subway])
 family = Lesson('Family', [mother, father, sister, brother, grandfather, grandmother])
 animals = Lesson('Animals', [cat, dog, gorilla, mouse, fish, cow, elephant])
+
+lessons = [transportation, family, animals]
