@@ -1,5 +1,6 @@
 import copy
 from random import sample
+import pickle
 
 class Word:
     def __init__(self, word, translation, sentence = None, sentence_translation = None):
@@ -114,3 +115,4 @@ family = Lesson('Family', [mother, father, sister, brother, grandfather, grandmo
 animals = Lesson('Animals', [cat, dog, gorilla, mouse, fish, cow, elephant])
 
 lessons = [transportation, family, animals]
+#pickle.dump({}, open('peopledict.txt', 'wb')) # run once then comment it out
