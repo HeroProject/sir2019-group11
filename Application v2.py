@@ -57,14 +57,18 @@ class DialogFlowSampleApplication(Base.AbstractApplication):
         return self.answer
     
     
-    def ask_question(self, question, context):
+    def ask_question(self, question, context, switchlanguage = False):
         '''
         Recursively keep asking the question if someone doesnt answer or if the correct answer isnt recognized.
         Input: string question and a string context (corresponding to dialogflow contexts)
         Output: string of the given answer
         '''
         self.sayAnimated2(question)
+        if switchlanguage:
+            self.changelanguage()
         answer = self.listen(context)
+        if switchlanguage:
+            self.changelanguage()
         
         print(f'Question: {question}, Answer: {answer}')
         
@@ -184,6 +188,21 @@ class DialogFlowSampleApplication(Base.AbstractApplication):
         # something something
         
         people_dict[self.person.name].firstlesson = False
+    
+    def recap_lesson(self, lesson):
+        self.sayAnimated2('Let\'s start by going quickly through your previous lesson')
+        
+        words = sample(lesson.learned_words, 3)
+        for word in words:
+            answer = self.ask_question(f'Do you remember the dutch translation for {word.word}?', word.translation, True)
+            if answer.lower() == word.translation.lower():
+                self.respond('correct')
+            elif answer:
+                self.sayAnimated2(f'The correct translation of {word.word} is')
+                self.changelanguage()
+                self.sayAnimated2(word.translation)
+                self.changelanguage()
+            
         
         
     def startlesson(self):
@@ -194,6 +213,9 @@ class DialogFlowSampleApplication(Base.AbstractApplication):
         Input: None
         Output: None
         '''
+        if len(self.person.lessons_learned) > 0:
+            self.recap_lesson(self.person.lessons_learned[-1])
+            
         if len(self.person.lessons_to_learn) > 0:
             self.lesson = None
 
@@ -214,6 +236,13 @@ class DialogFlowSampleApplication(Base.AbstractApplication):
                 word = self.lesson.sample()
                 self.sayAnimated2(f'The next word means {word.word}')
                 self.ask_to_repeat(word.translation)
+                
+                if random.random() > .6:
+                    self.sayAnimated2(f'Let\'s use {word.word} in a sentence')
+                    self.sayAnimated2(word.sentence)
+                    self.changelanguage()
+                    self.sayAniamted2(word.sentence_translation)
+                    self.changelanguage()
 
             self.person.update()
         else:
