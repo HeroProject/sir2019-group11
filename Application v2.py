@@ -30,7 +30,7 @@ class DialogFlowSampleApplication(Base.AbstractApplication):
     def sayAnimated2(self, string):
         '''
         Just to acquire a speechlock after saying something, to make sure that the lock isn't forgotten
-        Input: None
+        Input: string to say
         Output: None
         '''
         self.sayAnimated(string)
@@ -59,7 +59,6 @@ class DialogFlowSampleApplication(Base.AbstractApplication):
     
     def ask_question(self, question, context):
         '''
-        Ask a question in english and perform a check on the answer if the answer is not 'yes' or 'no'.
         Recursively keep asking the question if someone doesnt answer or if the correct answer isnt recognized.
         Input: string question and a string context (corresponding to dialogflow contexts)
         Output: string of the given answer
