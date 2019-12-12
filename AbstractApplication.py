@@ -23,7 +23,7 @@ class AbstractApplication(object):
             if message is not None:
                 channel = message['channel'].decode()
                 data = message['data'].decode()
-                #print("received " + data + " on " + channel)
+                # print("received " + data + " on " + channel)
                 if channel == self.__topics[0]:
                     self.onRobotEvent(event=data)
                 elif channel == self.__topics[1]:
@@ -47,7 +47,7 @@ class AbstractApplication(object):
 
     def __send(self, channel, data):
         self.__redis.publish(channel, data)
-        #print("sent " + data + " on " + channel)
+        # print("sent " + data + " on " + channel)
 
     def stop(self):
         """Stop listening to incoming events (which is done in a thread) so the Python application can close."""
@@ -156,7 +156,7 @@ class AbstractApplication(object):
 
     def startLooking(self):
         """Tell the robot (and any recognition module) to start the camera feed).
-        At some point stopLooking need sto be called!"""
+        At some point stopLooking needs to be called!"""
         self.__send('action_video', 'start watching')
 
     def stopLooking(self):
@@ -172,7 +172,7 @@ class AbstractApplication(object):
     def sayAnimated(self, text):
         """A string that the robot should say (in the currently selected language!) in an animated fashion.
         This means that the robot will automatically try to add (small) animations to the text.
-        Moreover, in this function, special tags are supported, please see:
+        Moreover, in this function, special tags are supported, see:
         http://doc.aldebaran.com/2-5/naoqi/audio/altexttospeech-tuto.html#using-tags-for-voice-tuning
         A TextStarted event will be sent when the speaking starts and a TextDone event after it is finished."""
         self.__send('action_say_animated', text)
@@ -180,11 +180,12 @@ class AbstractApplication(object):
     def doGesture(self, gesture):
         """Make the robot perform the given gesture. The list of available gestures is available on:
         http://doc.aldebaran.com/2-5/naoqi/motion/alanimationplayer-advanced.html
+        You can also install custom animations with Choregraphe.
         A GestureStarted event will be sent when the gesture starts and a GestureDone event when it is finished."""
         self.__send('action_gesture', gesture)
 
     def playAudio(self, audioFile):
-        """Plays the audio file (in the tablet's html/audio directory) on the robot's speakers.
+        """Plays the audio file (in the webserver's html/audio directory) on the robot's speakers.
         A PlayAudioStarted event will be sent when the audio starts and a PlayAudioDone event after it is finished.
         Any previously playing audio will be cancelled first;
         calling playAudio with an empty string thus has the effect of cancelling any previously playing audio."""
