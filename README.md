@@ -1,6 +1,5 @@
-# sir-skeleton
-Starting point for Socially Intelligent Robotics (SIR) course 2019
+# Robot polyglot
 
-Application v2 is the main file containing all the functionalities. All the users data is stored in people_dict.txt
+Application v2 is the main file containing all the functionalities. All of the user data is stored in people_dict.txt
 
 Test_agent.zip contains our Dialogflow implementation.
